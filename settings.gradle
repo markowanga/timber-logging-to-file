@@ -8,4 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TimberLoggingToFile"
 include ':app'
-include ':timberloggingtofile'
+include ':library'
