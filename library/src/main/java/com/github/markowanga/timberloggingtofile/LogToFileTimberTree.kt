@@ -1,5 +1,6 @@
 package com.github.markowanga.timberloggingtofile
 
+import com.github.markowanga.timberloggingtofile.crypt.TextCrypt
 import timber.log.Timber
 import java.io.File
 import java.time.LocalDate
@@ -22,7 +23,7 @@ class LogToFileTimberTree(
     private fun getLogFileNameForNow() = getLogFileNameFromDateTime(LocalDate.now())
 
     private fun saveLineToFile(line: String) {
-        val lineToSave = textCrypt?.encryptMsg(line) ?: line
+        val lineToSave = textCrypt?.encryptText(line) ?: line
         File(logsDirectory, getLogFileNameForNow()).appendText("${lineToSave}\n")
     }
 
