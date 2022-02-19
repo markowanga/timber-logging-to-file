@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofile
+package pl.theliver.timberloggingtofileapp
 
 import org.junit.Test
 

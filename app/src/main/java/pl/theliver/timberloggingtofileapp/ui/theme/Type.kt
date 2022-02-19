@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofile.ui.theme
+package pl.theliver.timberloggingtofileapp.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

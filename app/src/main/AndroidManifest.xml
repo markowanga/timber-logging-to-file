@@ -3,7 +3,7 @@
     package="pl.theliver.timberloggingtofile">
 
     <application
-        android:name="pl.theliver.timberloggingtofile.TimberLoggingToFileApplication"
+        android:name="pl.theliver.timberloggingtofileapp.TimberLoggingToFileApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimberLoggingToFile">
         <activity
-            android:name="pl.theliver.timberloggingtofile.MainActivity"
+            android:name="pl.theliver.timberloggingtofileapp.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TimberLoggingToFile.NoActionBar">

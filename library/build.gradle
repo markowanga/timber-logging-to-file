@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'maven-publish'
 }
-group = 'com.github.markowanga'
+group = 'pl.theliver'
 version = '1.0'
 
 android {
@@ -52,8 +52,8 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.markowanga'
-                artifactId = 'artifact'
+                groupId = group
+                artifactId = 'timberloggingtofile'
                 version = '1.0'
             }
         }

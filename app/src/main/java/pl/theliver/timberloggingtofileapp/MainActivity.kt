@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofile
+package pl.theliver.timberloggingtofileapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import pl.theliver.timberloggingtofile.ui.theme.TimberLoggingToFileTheme
+import pl.theliver.timberloggingtofileapp.ui.theme.TimberLoggingToFileTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

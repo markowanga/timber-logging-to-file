@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofile
+package pl.theliver.timberloggingtofileapp
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
