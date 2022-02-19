@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofileapp
+package pl.theliver.timberloggingtofile
 
 import android.annotation.SuppressLint
 import android.util.Base64

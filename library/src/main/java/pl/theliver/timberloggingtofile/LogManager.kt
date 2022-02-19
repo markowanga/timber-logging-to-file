@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofileapp
+package pl.theliver.timberloggingtofile
 
 import android.content.Context
 import androidx.core.content.ContextCompat

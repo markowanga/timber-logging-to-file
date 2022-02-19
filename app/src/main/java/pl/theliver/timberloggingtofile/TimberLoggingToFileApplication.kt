@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofileapp
+package pl.theliver.timberloggingtofile
 
 import androidx.multidex.MultiDexApplication
 import timber.log.Timber

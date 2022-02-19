@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -46,6 +47,22 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    publishNonDefault true
+}
+
+// Publish default flavour as main artifact, otherwise the maven pom is not generated
+if (android.productFlavors.size() > 0) {
+    android.libraryVariants.all { variant ->
+        if (android.publishNonDefault && variant.name == android.defaultPublishConfig) {
+            def bundleTask = tasks["bundle${name.capitalize()}"]
+            artifacts {
+                archives(bundleTask.archivePath) {
+                    classifier null
+                    builtBy bundleTask
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -65,5 +82,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+//    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }

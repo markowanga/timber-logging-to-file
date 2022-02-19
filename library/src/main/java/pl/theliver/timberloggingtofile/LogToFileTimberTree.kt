@@ -1,4 +1,4 @@
-package pl.theliver.timberloggingtofileapp
+package pl.theliver.timberloggingtofile
 
 import timber.log.Timber
 import java.io.File

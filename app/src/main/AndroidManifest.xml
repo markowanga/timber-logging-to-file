@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pl.theliver.timberloggingtofileapp">
+    package="pl.theliver.timberloggingtofile">
 
     <application
-        android:name=".TimberLoggingToFileApplication"
+        android:name="pl.theliver.timberloggingtofile.TimberLoggingToFileApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimberLoggingToFile">
         <activity
-            android:name="pl.theliver.timberloggingtofileapp.MainActivity"
+            android:name="pl.theliver.timberloggingtofile.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TimberLoggingToFile.NoActionBar">
