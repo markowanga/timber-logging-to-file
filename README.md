@@ -1,5 +1,6 @@
 # timber-logging-to-file
 [![](https://jitpack.io/v/markowanga/timber-logging-to-file.svg)](https://jitpack.io/#markowanga/timber-logging-to-file)
+
 Simple library which save timber logs to file.
 
 ## Add dependency to gradle
