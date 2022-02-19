@@ -61,7 +61,7 @@ fun initLogger() {
     Timber.plant(
         LogToFileTimberTree(
             LogManager.getExternalLogsDirectory(this),
-            Base64TextCrypt()
+            CipherTextCrypt("test1234test1234")
         )
     )
 }
