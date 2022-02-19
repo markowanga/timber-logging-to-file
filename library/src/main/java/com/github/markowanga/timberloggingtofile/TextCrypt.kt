@@ -1,20 +1,14 @@
 package com.github.markowanga.timberloggingtofile
 
 import android.annotation.SuppressLint
-import android.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
-fun ByteArray.toBase64(): String = Base64.encodeToString(this, Base64.DEFAULT)
 
-fun String.toBytesFromBase64(): ByteArray =
-    Base64.decode(this, Base64.DEFAULT)
+class TextCrypt(password: String) {
 
-
-class TextCrypt(private val password: String) {
-
-    private val secretKey: SecretKey = generateKey()
+    private val secretKey: SecretKey = generateKey(password)
 
     @SuppressLint("GetInstance")
     private val encryptCipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
@@ -24,7 +18,7 @@ class TextCrypt(private val password: String) {
     private val decryptCipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
         .also { it.init(Cipher.DECRYPT_MODE, secretKey) }
 
-    private fun generateKey(): SecretKey {
+    private fun generateKey(password: String): SecretKey {
         return SecretKeySpec(password.toByteArray(), "AES")
     }
 
