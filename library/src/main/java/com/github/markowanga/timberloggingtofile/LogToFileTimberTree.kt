@@ -76,7 +76,7 @@ class LogToFileTimberTree(
     companion object {
         const val MAX_TAG_LENGTH = 33
         const val CALL_STACK_INDEX = 5
-        const val DEFAULT_EXTENSION = ".log"
+        const val DEFAULT_EXTENSION = "log"
         const val DEFAULT_LOG_FILE_PREFIX = "app_logs_"
 
         val DEFAULT_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd")!!
