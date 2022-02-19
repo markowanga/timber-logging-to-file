@@ -17,7 +17,7 @@ Library provide simple `Timber.Tree` called `LogToFileTimberTree`.
 Below example shows how to plant `LogToFileTimberTree`:
 
 ```kotlin
-    fun initLogger() {
+fun initLogger() {
     Timber.plant(
         LogToFileTimberTree(LogManager.getExternalLogsDirectory(this))
     )
@@ -39,7 +39,7 @@ The simple encryption -- easy to decode, but simple user can't read it.
 Example of use:
 
 ```kotlin
-    fun initLogger() {
+fun initLogger() {
     Timber.plant(
         LogToFileTimberTree(
             LogManager.getExternalLogsDirectory(this),
@@ -57,7 +57,7 @@ Logs are protected by password.
 Example of use:
 
 ```kotlin
-    fun initLogger() {
+fun initLogger() {
     Timber.plant(
         LogToFileTimberTree(
             LogManager.getExternalLogsDirectory(this),
