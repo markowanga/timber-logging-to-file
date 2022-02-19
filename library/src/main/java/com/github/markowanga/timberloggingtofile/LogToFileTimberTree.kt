@@ -11,10 +11,9 @@ import java.util.regex.Pattern
 class LogToFileTimberTree(
     private val logsDirectory: File,
     private val textCrypt: TextCrypt? = null,
-    private val logFilePrefix: String = "app_logs_",
+    private val logFilePrefix: String = DEFAULT_LOG_FILE_PREFIX,
     private val logFileExtension: String = DEFAULT_EXTENSION,
-    private val dateTimeFormatter: DateTimeFormatter =
-        DateTimeFormatter.ofPattern("yyyyMMdd")
+    private val dateTimeFormatter: DateTimeFormatter = DEFAULT_FORMATTER
 ) : Timber.Tree() {
 
     private fun getLogFileNameFromDateTime(dateTime: LocalDate) =
@@ -77,5 +76,8 @@ class LogToFileTimberTree(
         const val MAX_TAG_LENGTH = 33
         const val CALL_STACK_INDEX = 5
         const val DEFAULT_EXTENSION = ".log"
+        const val DEFAULT_LOG_FILE_PREFIX = "app_logs_"
+
+        val DEFAULT_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd")!!
     }
 }
