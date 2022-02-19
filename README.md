@@ -7,7 +7,7 @@ Simple library which save timber logs to file.
 ## Add dependency to gradle
 
 ```kotlin
-implementation("com.github.markowanga:timber-logging-to-file:1.0.3")
+implementation("com.github.markowanga:timber-logging-to-file:1.1.0")
 ```
 
 ## Basic usage of library
