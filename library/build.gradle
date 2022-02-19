@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'maven-publish'
 }
-group = 'pl.theliver'
+group = 'com.github.markowanga'
 version = '1.0'
 
 android {
