@@ -10,14 +10,13 @@ implementation("com.github.markowanga:timber-logging-to-file:1.0.3")
 
 ## Basic usage of library
 Library provide simple `Timber.Tree` called `LogToFileTimberTree`.
-Below example shows how to
+
+Below example shows how to plant `LogToFileTimberTree`:
 
 ```kotlin
     private fun initLogger() {
-        Timber.plant(Timber.DebugTree())
         Timber.plant(
             LogToFileTimberTree(LogManager.getExternalLogsDirectory(this))
         )
-        Timber.i("Hello log ;) !!!")
     }
 ```
