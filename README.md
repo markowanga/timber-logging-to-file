@@ -9,7 +9,7 @@ In difficult examples it is possible to use it in production.
 ## Add dependency to gradle
 
 ```kotlin
-implementation("com.github.markowanga:timber-logging-to-file:1.1.0")
+implementation("com.github.markowanga:timber-logging-to-file:1.2.0")
 ```
 
 ## Basic usage of library
@@ -82,4 +82,4 @@ It's classic internal memory of android app, it isn't available to read in relea
 ```kotlin
 LogManager.getExternalLogsDirectory(context)
 ```
-External location of files -- default Location is `Android/app/{applicationId}/files/app_logs`.
+External location of files – default Location is `Android/data/{applicationId}/files/app-logs`.

@@ -26,7 +26,7 @@ class TimberLoggingToFileApplication : MultiDexApplication() {
     }
 
     private fun getPlainTextTree() = LogToFileTimberTree(
-        LogManager.getExternalLogsDirectory(this),
+        LogManager.getInternalLogsDirectory(this),
         logFilePrefix = "plain_text_"
     )
 

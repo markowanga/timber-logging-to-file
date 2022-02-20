@@ -19,9 +19,7 @@ class LogToFileTimberTreeTest {
     @Before
     @After
     fun resetAll() {
-        val rootDirectory = LogManager.getExternalLogsDirectory(getContext())
-        LogManager.removeFilesOlderThanDays(0, rootDirectory)
-        Timber.uprootAll()
+        resetAll(getContext())
     }
 
     @Test
