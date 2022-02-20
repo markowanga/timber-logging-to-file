@@ -7,10 +7,7 @@ import timber.log.Timber
 
 class TimberLoggingToFileApplication : MultiDexApplication() {
 
-    private val storageProvider by lazy { StorageProvider(this) }
-    private val logToFileFactory by lazy {
-        LogToFileFactory(storageProvider.getExternalLogsDirectory())
-    }
+    private val logToFileFactory by lazy { LogToFileFactory(this) }
 
     override fun onCreate() {
         super.onCreate()

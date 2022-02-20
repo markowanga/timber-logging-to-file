@@ -1,5 +1,6 @@
 package com.github.markowanga.timberloggingtofile
 
+import android.content.Context
 import com.github.markowanga.timberloggingtofile.crypt.Base64TextCrypt
 import com.github.markowanga.timberloggingtofile.crypt.CipherTextCrypt
 import com.github.markowanga.timberloggingtofile.crypt.TextCrypt
@@ -7,9 +8,11 @@ import java.io.File
 import java.time.format.DateTimeFormatter
 
 class LogToFileFactory(
-    private val logsDirectory: File,
+    context: Context,
 ) {
-    fun createPlainTextTree() = create( logFilePrefix = "plain_text_")
+    private val storageProvider = StorageProvider(context)
+
+    fun createPlainTextTree() = create(logFilePrefix = "plain_text_")
 
     fun createBase64Tree() = create(
         Base64TextCrypt(),
@@ -28,7 +31,7 @@ class LogToFileFactory(
         dateTimeFormatter: DateTimeFormatter = DEFAULT_FORMATTER
     ) =
         LogToFileTimberTree(
-            logsDirectory,
+            storageProvider.getExternalLogsDirectory(),
             textCrypt,
             logFilePrefix,
             logFileExtension,
