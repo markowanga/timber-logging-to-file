@@ -3,6 +3,7 @@ package com.github.markowanga.timberloggingtofile
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.markowanga.timberloggingtofile.crypt.Base64TextCrypt
+import com.github.markowanga.timberloggingtofile.logname.DailyLogFileNameProvider
 import com.github.markowanga.timberloggingtofile.storage.ExternalLogStorageProvider
 import org.junit.After
 import org.junit.Assert
@@ -56,13 +57,11 @@ class LogToFileTimberTreeTest {
     fun testParametrizedFileName() {
         val storageProvider = ExternalLogStorageProvider(getContext())
         val rootDirectory = storageProvider.getStorageDirectory()
-        val formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd")!!
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")!!
         Timber.plant(
             LogToFileTimberTree(
                 rootDirectory,
-                logFilePrefix = "my_log_",
-                logFileExtension = "ml",
-                dateTimeFormatter = formatter
+                logFileNameProvider = DailyLogFileNameProvider(prefix = "my_log_", extension = "ml")
             )
         )
         Timber.i(EXAMPLE_LOG_MESSAGE_1)

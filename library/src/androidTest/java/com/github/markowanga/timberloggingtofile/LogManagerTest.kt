@@ -3,6 +3,7 @@ package com.github.markowanga.timberloggingtofile
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.markowanga.timberloggingtofile.crypt.Base64TextCrypt
+import com.github.markowanga.timberloggingtofile.logname.DailyLogFileNameProvider
 import com.github.markowanga.timberloggingtofile.storage.ExternalLogStorageProvider
 import com.github.markowanga.timberloggingtofile.storage.LogFileUtil
 import org.junit.After
@@ -27,7 +28,11 @@ class LogManagerTest {
         val rootDirectory = storageProvider.getStorageDirectory()
         Timber.plant(LogToFileTimberTree(rootDirectory))
         Timber.plant(
-            LogToFileTimberTree(rootDirectory, Base64TextCrypt(), logFilePrefix = "base64_")
+            LogToFileTimberTree(
+                rootDirectory,
+                Base64TextCrypt(),
+                DailyLogFileNameProvider(prefix = "base_64_")
+            )
         )
         Timber.i("hello log")
         LogFileUtil.removeFilesOlderThanDays(2, rootDirectory)
@@ -40,7 +45,11 @@ class LogManagerTest {
         val rootDirectory = storageProvider.getStorageDirectory()
         Timber.plant(LogToFileTimberTree(rootDirectory))
         Timber.plant(
-            LogToFileTimberTree(rootDirectory, Base64TextCrypt(), logFilePrefix = "base64_")
+            LogToFileTimberTree(
+                rootDirectory,
+                Base64TextCrypt(),
+                DailyLogFileNameProvider(prefix = "base_64_")
+            )
         )
         Timber.i("hello log")
         LogFileUtil.removeFilesOlderThanDays(0, rootDirectory)

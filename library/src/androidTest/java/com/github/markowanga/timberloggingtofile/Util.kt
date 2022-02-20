@@ -10,6 +10,6 @@ fun resetAll(context: Context) {
     Timber.uprootAll()
     listOf(InternalLogStorageProvider(context), ExternalLogStorageProvider(context))
         .forEach {
-            LogFileUtil().removeFilesOlderThanDays(0, it.getStorageDirectory())
+            LogFileUtil.removeFilesOlderThanDays(0, it.getStorageDirectory())
         }
 }

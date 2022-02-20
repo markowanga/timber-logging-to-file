@@ -9,7 +9,7 @@ In difficult examples it is possible to use it in production.
 ## Add dependency to gradle
 
 ```kotlin
-implementation("com.github.markowanga:timber-logging-to-file:1.2.0")
+implementation("com.github.markowanga:timber-logging-to-file:1.3.0")
 ```
 
 ## Basic usage of library
@@ -21,7 +21,7 @@ Below example shows how to plant `LogToFileTimberTree`:
 ```kotlin
 fun initLogger() {
     Timber.plant(
-        LogToFileTimberTree(LogManager.getExternalLogsDirectory(this))
+        LogToFileTimberTree(ExternalLogStorageProvider(context).getStorageDirectory())
     )
 }
 ```
@@ -44,7 +44,7 @@ Example of use:
 fun initLogger() {
     Timber.plant(
         LogToFileTimberTree(
-            LogManager.getExternalLogsDirectory(this),
+            ExternalLogStorageProvider(context).getStorageDirectory(),
             Base64TextCrypt()
         )
     )
@@ -68,6 +68,20 @@ fun initLogger() {
     )
 }
 ```
+
+## Log file names
+
+Library support file name based on current date and any variant can be implemented.
+
+There are two implemented `LogFileNameProvider` in library
+
+### DailyLogFileNameProvider
+
+The best way to divide logs for days
+
+### ConstantDateTimeLogFileNameProvider
+
+The best way to divide logs per constant date – ex. datetime when application starts
 
 ## Where to find files with logs
 There are two type of paths provided by `LogManager`

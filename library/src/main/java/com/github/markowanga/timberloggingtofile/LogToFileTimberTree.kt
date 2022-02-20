@@ -1,9 +1,10 @@
 package com.github.markowanga.timberloggingtofile
 
 import com.github.markowanga.timberloggingtofile.crypt.TextCrypt
+import com.github.markowanga.timberloggingtofile.logname.DailyLogFileNameProvider
+import com.github.markowanga.timberloggingtofile.logname.LogFileNameProvider
 import timber.log.Timber
 import java.io.File
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
@@ -11,9 +12,7 @@ import java.util.regex.Pattern
 class LogToFileTimberTree(
     private val logsDirectory: File,
     private val textCrypt: TextCrypt? = null,
-    private val logFilePrefix: String = DEFAULT_LOG_FILE_PREFIX,
-    private val logFileExtension: String = DEFAULT_EXTENSION,
-    private val dateTimeFormatter: DateTimeFormatter = DEFAULT_FORMATTER,
+    private val logFileNameProvider: LogFileNameProvider = DEFAULT_LOG_FILE_NAME_PROVIDER
 ) : Timber.Tree() {
 
     private val priorityMap = mapOf(
@@ -25,14 +24,11 @@ class LogToFileTimberTree(
         7 to "ASSERT",
     )
 
-    private fun getLogFileNameFromDateTime(dateTime: LocalDate) =
-        "$logFilePrefix${dateTimeFormatter.format(dateTime)}.$logFileExtension"
-
-    private fun getLogFileNameForNow() = getLogFileNameFromDateTime(LocalDate.now())
+    private fun getLogFileNameForNow() = logFileNameProvider.getFileName(LocalDateTime.now())
 
     private fun saveLineToFile(line: String) {
-        val lineToSave = textCrypt?.encryptText(line) ?: line
-        File(logsDirectory, getLogFileNameForNow()).appendText("$lineToSave\n")
+        File(logsDirectory, getLogFileNameForNow())
+            .appendText("${textCrypt?.encryptText(line) ?: line}\n")
     }
 
     private fun createStackElementTag(element: StackTraceElement): String {
@@ -77,10 +73,7 @@ class LogToFileTimberTree(
     companion object {
         const val MAX_TAG_LENGTH = 33
         const val CALL_STACK_INDEX = 5
-
-        private const val DEFAULT_EXTENSION = ".log"
-        private const val DEFAULT_LOG_FILE_PREFIX = "app_logs_"
-        private val DEFAULT_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd")
+        val DEFAULT_LOG_FILE_NAME_PROVIDER = DailyLogFileNameProvider()
     }
 
 }
