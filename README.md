@@ -102,15 +102,15 @@ class ConstantDateTimeLogFileNameProvider(
 ```
 
 ## Where to find files with logs
-There are two type of paths provided by `LogManager`
+There are two type of paths provided by implementation of `StorageProvider`
 
-### Internal directory
+### InternalLogStorageProvider
 ```kotlin
 InternalLogStorageProvider(context).getStorageDirectory()
 ```
 It's classic internal memory of android app, it isn't available to read in release mode
 
-### External directory
+### ExternalLogStorageProvider
 ```kotlin
 ExternalLogStorageProvider(context).getStorageDirectory()
 ```
