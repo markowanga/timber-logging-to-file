@@ -2,7 +2,9 @@
 
 [![](https://jitpack.io/v/markowanga/timber-logging-to-file.svg)](https://jitpack.io/#markowanga/timber-logging-to-file)
 
-Simple library which save timber logs to file.
+Simple library which save encrypted timber logs to file. Best way to verify what's happen when
+tester have hard to reproduce error and Crashlytics doesn't contain enough information.
+In difficult examples it is possible to use it in production. 
 
 ## Add dependency to gradle
 
