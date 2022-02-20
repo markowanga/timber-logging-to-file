@@ -20,11 +20,19 @@ object LogManager {
         context: Context,
         logDirectory: String = DEFAULT_LOG_DIRECTORY
     ): File =
-        File(getPrimaryExternalStorage(context), logDirectory).apply {
-            if (!this.exists()) {
-                this.mkdirs()
-            }
+        File(getPrimaryExternalStorage(context), logDirectory).prepare()
+
+    fun getInternalLogsDirectory(
+        context: Context,
+        logDirectory: String = DEFAULT_LOG_DIRECTORY
+    ): File =
+        File(context.filesDir, logDirectory).prepare()
+
+    private fun File.prepare() = apply {
+        if (!this.exists()) {
+            this.mkdirs()
         }
+    }
 
     fun removeFilesOlderThanDays(daysCount: Long, rootFile: File) {
         val minimumBefore = Instant.now().minus(daysCount, ChronoUnit.DAYS)
