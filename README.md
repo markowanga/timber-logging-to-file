@@ -2,12 +2,14 @@
 
 [![](https://jitpack.io/v/markowanga/timber-logging-to-file.svg)](https://jitpack.io/#markowanga/timber-logging-to-file)
 
-Simple library which save timber logs to file.
+Simple library which save encrypted timber logs to file. Best way to verify what's happen when
+tester have hard to reproduce error and Crashlytics doesn't contain enough information.
+In difficult examples it is possible to use it in production. 
 
 ## Add dependency to gradle
 
 ```kotlin
-implementation("com.github.markowanga:timber-logging-to-file:1.1.0")
+implementation("com.github.markowanga:timber-logging-to-file:1.2.0")
 ```
 
 ## Basic usage of library
@@ -66,3 +68,18 @@ fun initLogger() {
     )
 }
 ```
+
+## Where to find files with logs
+There are two type of paths provided by `LogManager`
+
+### Internal directory
+```kotlin
+LogManager.getInternalLogsDirectory(context)
+```
+It's classic internal memory of android app, it isn't available to read in release mode
+
+### External directory
+```kotlin
+LogManager.getExternalLogsDirectory(context)
+```
+External location of files – default Location is `Android/data/{applicationId}/files/app-logs`.
