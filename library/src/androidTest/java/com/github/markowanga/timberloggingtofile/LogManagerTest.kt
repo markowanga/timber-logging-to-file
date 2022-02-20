@@ -3,6 +3,8 @@ package com.github.markowanga.timberloggingtofile
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.markowanga.timberloggingtofile.crypt.Base64TextCrypt
+import com.github.markowanga.timberloggingtofile.storage.ExternalLogStorageProvider
+import com.github.markowanga.timberloggingtofile.storage.LogFileUtil
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -21,25 +23,27 @@ class LogManagerTest {
 
     @Test
     fun removeFilesOlderThan2Days() {
-        val rootDirectory = LogManager.getExternalLogsDirectory(getContext())
+        val storageProvider = ExternalLogStorageProvider(getContext())
+        val rootDirectory = storageProvider.getStorageDirectory()
         Timber.plant(LogToFileTimberTree(rootDirectory))
         Timber.plant(
             LogToFileTimberTree(rootDirectory, Base64TextCrypt(), logFilePrefix = "base64_")
         )
         Timber.i("hello log")
-        LogManager.removeFilesOlderThanDays(2, rootDirectory)
+        LogFileUtil.removeFilesOlderThanDays(2, rootDirectory)
         assertEquals(2, rootDirectory.list()?.size ?: 0)
     }
 
     @Test
     fun removeFilesOlderThan0Days() {
-        val rootDirectory = LogManager.getExternalLogsDirectory(getContext())
+        val storageProvider = ExternalLogStorageProvider(getContext())
+        val rootDirectory = storageProvider.getStorageDirectory()
         Timber.plant(LogToFileTimberTree(rootDirectory))
         Timber.plant(
             LogToFileTimberTree(rootDirectory, Base64TextCrypt(), logFilePrefix = "base64_")
         )
         Timber.i("hello log")
-        LogManager.removeFilesOlderThanDays(0, rootDirectory)
+        LogFileUtil.removeFilesOlderThanDays(0, rootDirectory)
         assertEquals(0, rootDirectory.list()?.size ?: 0)
     }
 

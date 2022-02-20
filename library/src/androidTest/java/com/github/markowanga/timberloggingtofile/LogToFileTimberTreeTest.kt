@@ -3,6 +3,7 @@ package com.github.markowanga.timberloggingtofile
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.markowanga.timberloggingtofile.crypt.Base64TextCrypt
+import com.github.markowanga.timberloggingtofile.storage.ExternalLogStorageProvider
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -24,7 +25,8 @@ class LogToFileTimberTreeTest {
 
     @Test
     fun testContentOfNoCryptedLogs() {
-        val rootDirectory = LogManager.getExternalLogsDirectory(getContext())
+        val storageProvider = ExternalLogStorageProvider(getContext())
+        val rootDirectory = storageProvider.getStorageDirectory()
         Timber.plant(LogToFileTimberTree(rootDirectory))
         Timber.i(EXAMPLE_LOG_MESSAGE_1)
         Assert.assertEquals(
@@ -39,7 +41,8 @@ class LogToFileTimberTreeTest {
 
     @Test
     fun testBasicFileName() {
-        val rootDirectory = LogManager.getExternalLogsDirectory(getContext())
+        val storageProvider = ExternalLogStorageProvider(getContext())
+        val rootDirectory = storageProvider.getStorageDirectory()
         Timber.plant(LogToFileTimberTree(rootDirectory))
         Timber.i(EXAMPLE_LOG_MESSAGE_1)
         val dateTag = DateTimeFormatter.ofPattern("yyyyMMdd")!!.format(LocalDateTime.now())
@@ -51,7 +54,8 @@ class LogToFileTimberTreeTest {
 
     @Test
     fun testParametrizedFileName() {
-        val rootDirectory = LogManager.getExternalLogsDirectory(getContext())
+        val storageProvider = ExternalLogStorageProvider(getContext())
+        val rootDirectory = storageProvider.getStorageDirectory()
         val formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd")!!
         Timber.plant(
             LogToFileTimberTree(
@@ -71,7 +75,8 @@ class LogToFileTimberTreeTest {
 
     @Test
     fun testCryptedLogContent() {
-        val rootDirectory = LogManager.getExternalLogsDirectory(getContext())
+        val storageProvider = ExternalLogStorageProvider(getContext())
+        val rootDirectory = storageProvider.getStorageDirectory()
         val cryptText = Base64TextCrypt()
         Timber.plant(LogToFileTimberTree(rootDirectory, cryptText))
         Timber.i(EXAMPLE_LOG_MESSAGE_1)

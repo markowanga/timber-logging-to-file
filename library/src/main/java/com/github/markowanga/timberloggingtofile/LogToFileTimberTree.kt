@@ -10,10 +10,10 @@ import java.util.regex.Pattern
 
 class LogToFileTimberTree(
     private val logsDirectory: File,
-    private val textCrypt: TextCrypt?,
-    private val logFilePrefix: String,
-    private val logFileExtension: String ,
-    private val dateTimeFormatter: DateTimeFormatter,
+    private val textCrypt: TextCrypt? = null,
+    private val logFilePrefix: String = DEFAULT_LOG_FILE_PREFIX,
+    private val logFileExtension: String = DEFAULT_EXTENSION,
+    private val dateTimeFormatter: DateTimeFormatter = DEFAULT_FORMATTER,
 ) : Timber.Tree() {
 
     private val priorityMap = mapOf(
@@ -32,7 +32,7 @@ class LogToFileTimberTree(
 
     private fun saveLineToFile(line: String) {
         val lineToSave = textCrypt?.encryptText(line) ?: line
-        File(logsDirectory, getLogFileNameForNow()).appendText("${lineToSave}\n")
+        File(logsDirectory, getLogFileNameForNow()).appendText("$lineToSave\n")
     }
 
     private fun createStackElementTag(element: StackTraceElement): String {
@@ -61,8 +61,7 @@ class LogToFileTimberTree(
     }
 
     private fun priorityToString(priority: Int) =
-        priorityMap
-            .getOrElse(priority) { throw IllegalAccessException() }
+        priorityMap.getOrElse(priority) { throw IllegalAccessException() }
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         val time = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
@@ -78,5 +77,10 @@ class LogToFileTimberTree(
     companion object {
         const val MAX_TAG_LENGTH = 33
         const val CALL_STACK_INDEX = 5
+
+        private const val DEFAULT_EXTENSION = ".log"
+        private const val DEFAULT_LOG_FILE_PREFIX = "app_logs_"
+        private val DEFAULT_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd")
     }
+
 }
