@@ -6,21 +6,18 @@ import java.io.File
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
-object LogManager {
+class StorageProvider /*@Injected constructor*/(
+    private val context: Context
+) {
 
-    private const val DEFAULT_LOG_DIRECTORY = "app-logs"
-
-    private fun getPrimaryExternalStorage(context: Context): File {
+    private fun getPrimaryExternalStorage(): File {
         val externalStorageVolumes: Array<out File> =
             ContextCompat.getExternalFilesDirs(context, null)
         return externalStorageVolumes[0]
     }
 
-    fun getExternalLogsDirectory(
-        context: Context,
-        logDirectory: String = DEFAULT_LOG_DIRECTORY
-    ): File =
-        File(getPrimaryExternalStorage(context), logDirectory).apply {
+    fun getExternalLogsDirectory(logDirectory: String = DEFAULT_LOG_DIRECTORY): File =
+        File(getPrimaryExternalStorage(), logDirectory).apply {
             if (!this.exists()) {
                 this.mkdirs()
             }
@@ -34,4 +31,7 @@ object LogManager {
             .forEach { it.delete() }
     }
 
+    companion object {
+        const val DEFAULT_LOG_DIRECTORY = "app-logs"
+    }
 }

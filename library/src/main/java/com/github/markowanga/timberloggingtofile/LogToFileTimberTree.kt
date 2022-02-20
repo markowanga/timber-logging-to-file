@@ -8,14 +8,22 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
 
-
 class LogToFileTimberTree(
     private val logsDirectory: File,
-    private val textCrypt: TextCrypt? = null,
-    private val logFilePrefix: String = DEFAULT_LOG_FILE_PREFIX,
-    private val logFileExtension: String = DEFAULT_EXTENSION,
-    private val dateTimeFormatter: DateTimeFormatter = DEFAULT_FORMATTER
+    private val textCrypt: TextCrypt?,
+    private val logFilePrefix: String,
+    private val logFileExtension: String ,
+    private val dateTimeFormatter: DateTimeFormatter,
 ) : Timber.Tree() {
+
+    private val priorityMap = mapOf(
+        2 to "VERBOSE",
+        3 to "DEBUG",
+        4 to "INFO",
+        5 to "WARN",
+        6 to "ERROR",
+        7 to "ASSERT",
+    )
 
     private fun getLogFileNameFromDateTime(dateTime: LocalDate) =
         "$logFilePrefix${dateTimeFormatter.format(dateTime)}.$logFileExtension"
@@ -52,15 +60,9 @@ class LogToFileTimberTree(
         return createStackElementTag(stackTrace[CALL_STACK_INDEX + 1])
     }
 
-    private fun priorityToString(priority: Int) = when (priority) {
-        2 -> "VERBOSE"
-        3 -> "DEBUG"
-        4 -> "INFO"
-        5 -> "WARN"
-        6 -> "ERROR"
-        7 -> "ASSERT"
-        else -> throw IllegalAccessException()
-    }
+    private fun priorityToString(priority: Int) =
+        priorityMap
+            .getOrElse(priority) { throw IllegalAccessException() }
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         val time = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
@@ -76,9 +78,5 @@ class LogToFileTimberTree(
     companion object {
         const val MAX_TAG_LENGTH = 33
         const val CALL_STACK_INDEX = 5
-        const val DEFAULT_EXTENSION = ".log"
-        const val DEFAULT_LOG_FILE_PREFIX = "app_logs_"
-
-        val DEFAULT_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd")!!
     }
 }
