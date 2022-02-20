@@ -74,12 +74,12 @@ There are two type of paths provided by `LogManager`
 
 ### Internal directory
 ```kotlin
-LogManager.getExternalLogsDirectory(context)
+LogManager.getInternalLogsDirectory(context)
 ```
 It's classic internal memory of android app, it isn't available to read in release mode
 
 ### External directory
 ```kotlin
-LogManager.getInternalLogsDirectory(context)
+LogManager.getExternalLogsDirectory(context)
 ```
 External location of files -- default Location is `Android/app/{applicationId}/files/app_logs`.
