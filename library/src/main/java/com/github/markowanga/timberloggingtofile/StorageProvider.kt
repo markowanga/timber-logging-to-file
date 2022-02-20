@@ -6,33 +6,22 @@ import java.io.File
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
-object LogManager {
+class StorageProvider /*@Injected constructor*/(
+    private val context: Context
+) {
 
-    private const val DEFAULT_LOG_DIRECTORY = "app-logs"
-
-    private fun getPrimaryExternalStorage(context: Context): File {
+    private fun getPrimaryExternalStorage(): File {
         val externalStorageVolumes: Array<out File> =
             ContextCompat.getExternalFilesDirs(context, null)
         return externalStorageVolumes[0]
     }
 
-    fun getExternalLogsDirectory(
-        context: Context,
-        logDirectory: String = DEFAULT_LOG_DIRECTORY
-    ): File =
-        File(getPrimaryExternalStorage(context), logDirectory).prepare()
-
-    fun getInternalLogsDirectory(
-        context: Context,
-        logDirectory: String = DEFAULT_LOG_DIRECTORY
-    ): File =
-        File(context.filesDir, logDirectory).prepare()
-
-    private fun File.prepare() = apply {
-        if (!this.exists()) {
-            this.mkdirs()
+    fun getExternalLogsDirectory(logDirectory: String = DEFAULT_LOG_DIRECTORY): File =
+        File(getPrimaryExternalStorage(), logDirectory).apply {
+            if (!this.exists()) {
+                this.mkdirs()
+            }
         }
-    }
 
     fun removeFilesOlderThanDays(daysCount: Long, rootFile: File) {
         val minimumBefore = Instant.now().minus(daysCount, ChronoUnit.DAYS)
@@ -42,4 +31,7 @@ object LogManager {
             .forEach { it.delete() }
     }
 
+    companion object {
+        const val DEFAULT_LOG_DIRECTORY = "app-logs"
+    }
 }
