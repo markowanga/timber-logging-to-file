@@ -62,7 +62,7 @@ Example of use:
 fun initLogger() {
     Timber.plant(
         LogToFileTimberTree(
-            LogManager.getExternalLogsDirectory(this),
+            ExternalLogStorageProvider(context).getStorageDirectory(),
             CipherTextCrypt("test1234test1234")
         )
     )
@@ -79,21 +79,39 @@ There are two implemented `LogFileNameProvider` in library
 
 The best way to divide logs for days
 
+```kotlin
+class DailyLogFileNameProvider(
+    private val dateTimeFormatter: DateTimeFormatter = DEFAULT_FORMATTER,
+    prefix: String = DEFAULT_PREFIX,
+    extension: String = DEFAULT_EXTENSION
+) : LogFileNameProvider(prefix, extension) { /**/ }
+```
+
 ### ConstantDateTimeLogFileNameProvider
 
 The best way to divide logs per constant date – ex. datetime when application starts
+
+```kotlin
+class ConstantDateTimeLogFileNameProvider(
+    private val dateTime: LocalDateTime = LocalDateTime.now(),
+    private val dateTimeFormatter: DateTimeFormatter = DEFAULT_FORMATTER,
+    prefix: String = DEFAULT_PREFIX,
+    extension: String = DEFAULT_EXTENSION
+) : LogFileNameProvider(prefix, extension) { /**/ }
+
+```
 
 ## Where to find files with logs
 There are two type of paths provided by `LogManager`
 
 ### Internal directory
 ```kotlin
-LogManager.getInternalLogsDirectory(context)
+InternalLogStorageProvider(context).getStorageDirectory()
 ```
 It's classic internal memory of android app, it isn't available to read in release mode
 
 ### External directory
 ```kotlin
-LogManager.getExternalLogsDirectory(context)
+ExternalLogStorageProvider(context).getStorageDirectory()
 ```
 External location of files – default Location is `Android/data/{applicationId}/files/app-logs`.
