@@ -1,6 +1,7 @@
 # timber-logging-to-file
 
 [![](https://jitpack.io/v/markowanga/timber-logging-to-file.svg)](https://jitpack.io/#markowanga/timber-logging-to-file)
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 Simple library which save encrypted timber logs to file. Best way to verify what's happen when
 tester have hard to reproduce error and Crashlytics doesn't contain enough information.
